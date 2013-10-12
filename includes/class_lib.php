@@ -1,5 +1,7 @@
 <?php
 /*
+*Written By NineteenEleven, http://nineteeneleven.info
+*
 *        Resources
 *https://developer.valvesoftware.com/wiki/Steam_Web_API
 *http://wiki.teamfortress.com/wiki/WebAPI

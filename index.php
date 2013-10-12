@@ -1,5 +1,3 @@
-<!-- This is just some samples. -->
-
 <html>
 <header>
 	<title>Steam ID Finder by NineteenEleven</title>
@@ -59,6 +57,9 @@ if (isset($_POST['SteamID'])) {
 
 	$SteamArray = $SteamIDConvert->SteamIDCheck($SteamID);
 
+	if (empty($SteamArray)) {
+			exit("<h1>No Such User Found</h1>");
+	}
 	$Query = $SteamQuery->GetPlayerSummaries($SteamArray['steamID64']);
 
 	echo "Steam ID: " . $SteamArray['steamid'] . "<br />";
