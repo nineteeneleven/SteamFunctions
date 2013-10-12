@@ -8,7 +8,7 @@
 *
 */
 
-define("API_KEY" , "XXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+define("API_KEY" , "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"); //http://steamcommunity.com/dev/apikey
 define("cache_time", "15"); //Time in minutes to resolve cache
 
 

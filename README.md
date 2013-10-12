@@ -15,3 +15,5 @@ SteamQuery:
 
 
 -ConvertVanityURL will return the 64 bit Steam ID for the player
+
+Everything you need is in the class_lib.php file, you will also need an API key from valve, put it in the API_KEY variable in class_lib.php. The index.php is just sample content to show what you can do with the library provided. It is in no way needed to use these functions.
