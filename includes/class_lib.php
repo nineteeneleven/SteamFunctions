@@ -8,7 +8,7 @@
 *
 */
 
-define("API_KEY" , "XXXXXXXXXXXXXXXXXXXXXXXXXXXX"); //http://steamcommunity.com/dev/apikey
+define("API_KEY" , "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 define("cache_time", "15"); //Time in minutes to resolve cache
 
 
@@ -95,12 +95,12 @@ class SteamQuery
         $json_output=json_decode($json);
         return $json_output;
     }
-    public function GetTF2Inv($steamID64){
-        $API_link = "http://api.steampowered.com/IEconItems_440/GetPlayerItems/v0001/?key=" . API_KEY . "&format=json&steamid=" . $steamID64;
+    public function GetInv($appid,$steamID64){
+        $API_link = "http://api.steampowered.com/IEconItems_".$appid."/GetPlayerItems/v0001/?key=" . API_KEY . "&format=json&steamid=" . $steamID64;
         $json = $this->getJson($API_link);
         $json_output=json_decode($json);
         return $json_output;
-    }
+    }   
     public function ConvertVanityURL($playerName){
         $API_link = "http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=" . API_KEY . "&format=json&vanityurl=" . $playerName;
         $json = $this->getJson($API_link);
@@ -112,9 +112,43 @@ class SteamQuery
             return false;
         }
     }
+//Returns the item schema for an app id
+    public function GetSchema($appid){
+        $API_link = "http://api.steampowered.com/IEconItems_".$appid."/GetSchema/v0001/?key=" . API_KEY . "&format=json";
+        $json = $this->getJson($API_link);
+        $json_output=json_decode($json);
+        return $json_output;
+    }
+
+//returns arrway with list of items in a players backpack.
+    public function FindItem($appid,$defindex){
+        $Schema = $this->GetSchema($appid);
+        foreach ($Schema->result->items as $item) {
+            if ($item->defindex == $defindex) {
+
+                return array('name' => $item->name,
+                                    'defindex' => $item->defindex,
+                                    'item_class' => $item->item_class,
+                                    'item_type_name' => $item->item_type_name,
+                                    'item_name' => $item->item_name,
+                                    'proper_name' => $item->proper_name,
+                                    'item_slot' => $item->item_slot,
+                                    'model_player' => stripslashes($item->model_player),
+                                    'item_quality' => $item->item_quality,
+                                    'image_inventory' => stripslashes($item->image_inventory),
+                                    'min_ilevel' => $item->min_ilevel,
+                                    'max_ilevel' => $item->max_ilevel,
+                                    'image_url' => stripslashes($item->image_url),
+                                    'image_url_large' => stripslashes($item->image_url_large),
+                                    'craft_class' => $item->craft_class,
+                                    'craft_material_type' => $item->craft_material_type,
+                                    'capabilities' => $item->capabilities,
+                                    'used_by_classes' => $item->used_by_classes,
+                                    );
+            }
+        }
+    }
 }
-
-
 
 
 
